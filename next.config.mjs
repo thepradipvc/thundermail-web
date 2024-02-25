@@ -1,4 +1,19 @@
+import "./src/env.mjs"
+
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+    webpack: (config) => {
+        config.externals.push("@node-rs/argon2", "@node-rs/bcrypt");
+        return config;
+    },
+    images: {
+        remotePatterns: [
+            {
+                hostname: "lh3.googleusercontent.com",
+                protocol: "https"
+            }
+        ]
+    }
+};
 
 export default nextConfig;
