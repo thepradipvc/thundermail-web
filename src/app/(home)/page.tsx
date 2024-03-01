@@ -5,7 +5,7 @@ const Home = async () => {
 
   return (
     <main className="flex h-full flex-col items-center p-24">
-      <h1 className="text-5xl">Welcom to GmailIt</h1>
+      <h1 className="text-5xl font-medium">Welcom to GmailIt</h1>
       <p>launching soon</p>
     </main>
   );

@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Icons } from "./Icons";
-import { Button } from "./ui/button";
+import { Icons } from "../../components/Icons";
+import { Button } from "../../components/ui/button";
 import Link from "next/link";
 
 const SigninForm = () => {
