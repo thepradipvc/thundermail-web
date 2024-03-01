@@ -1,4 +1,4 @@
-import SigninForm from "@/components/SigninForm";
+import SigninForm from "./_SigninForm";
 import {
   Card,
   CardContent,
