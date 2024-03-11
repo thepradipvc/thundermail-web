@@ -1,7 +1,9 @@
+import { TRPCReactProvider } from "@/trpc/react-client";
+import { GeistSans } from "geist/font/sans";
 import type { Metadata } from "next";
 import "./globals.css";
-import { GeistSans } from "geist/font/sans";
-import Navbar from "@/components/Navbar";
+import { Toaster } from "@/components/ui/toaster";
+import { Analytics } from "@vercel/analytics/react";
 
 export const metadata: Metadata = {
   title: "GmailIt",
@@ -15,7 +17,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${GeistSans.className} dark`}>
-      <body className="min-h-svh">{children}</body>
+      <body className="min-h-svh">
+        <TRPCReactProvider>
+          {children}
+          <Toaster />
+          <Analytics />
+        </TRPCReactProvider>
+      </body>
     </html>
   );
 }

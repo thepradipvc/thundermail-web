@@ -35,5 +35,4 @@ interface DatabaseUserAttributes {
   image: string;
 }
 
-export * from "./google";
 export * from "./validateUser";

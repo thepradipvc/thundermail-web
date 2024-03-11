@@ -5,6 +5,7 @@ const envVariables = z.object({
   GOOGLE_CLIENT_ID: z.string(),
   GOOGLE_CLIENT_SECRET: z.string(),
   NEXT_PUBLIC_BASE_URL: z.string().url(),
+  ENCRYPTION_KEY: z.string(),
 });
 
 const env = envVariables.safeParse(process.env);

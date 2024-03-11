@@ -1,4 +1,4 @@
-import { google, lucia } from "@/auth";
+import { lucia } from "@/auth";
 import { db } from "@/db";
 import { users } from "@/db/schema";
 import { OAuth2RequestError } from "arctic";
@@ -7,6 +7,7 @@ import { generateId } from "lucia";
 import { cookies } from "next/headers";
 import { NextRequest } from "next/server";
 import { parseJWT } from "oslo/jwt";
+import { google } from "../_googleAuthInstance";
 
 export async function GET(request: NextRequest) {
   const url = new URL(request.url);
@@ -41,7 +42,7 @@ export async function GET(request: NextRequest) {
       cookies().set(
         sessionCookie.name,
         sessionCookie.value,
-        sessionCookie.attributes
+        sessionCookie.attributes,
       );
       return new Response(null, {
         status: 302,
@@ -65,7 +66,7 @@ export async function GET(request: NextRequest) {
     cookies().set(
       sessionCookie.name,
       sessionCookie.value,
-      sessionCookie.attributes
+      sessionCookie.attributes,
     );
     return new Response(null, {
       status: 302,
@@ -87,9 +88,9 @@ export async function GET(request: NextRequest) {
   }
 }
 
-interface GoogleUser {
+type GoogleUser = {
   sub: string;
   email: string;
   name: string;
   picture: string;
-}
+};
