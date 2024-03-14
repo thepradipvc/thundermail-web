@@ -1,3 +1,5 @@
+import { createHash } from "crypto";
+
 const { createCipheriv, randomBytes, createDecipheriv } = require("crypto");
 
 export const encrypt = (text: string, secretKey: string) => {
@@ -17,4 +19,8 @@ export const decrypt = (encryptedText: string, secretKey: string) => {
   decrypted += decipher.final("utf8");
 
   return decrypted;
+};
+
+export const hash = (input: string) => {
+  return createHash("sha256").update(input).digest("hex");
 };

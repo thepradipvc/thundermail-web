@@ -30,4 +30,3 @@ const Page = async () => {
 };
 
 export default Page;
-// https://www.freecodecamp.org/news/best-practices-for-building-api-keys-97c26eabfea9/

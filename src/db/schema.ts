@@ -1,5 +1,12 @@
 import { relations } from "drizzle-orm";
-import { pgEnum, pgTable, timestamp, varchar } from "drizzle-orm/pg-core";
+import {
+  index,
+  pgEnum,
+  pgTable,
+  timestamp,
+  uniqueIndex,
+  varchar,
+} from "drizzle-orm/pg-core";
 
 export const users = pgTable("user", {
   id: varchar("id").primaryKey(),
@@ -37,15 +44,23 @@ export const gmailAccountStatus = pgEnum("gmailAccountStatus", [
   "access revoked",
 ]);
 
-export const gmailAccounts = pgTable("gmail_account", {
-  id: varchar("id").primaryKey(),
-  userId: varchar("user_id")
-    .notNull()
-    .references(() => users.id, { onDelete: "cascade" }),
-  email: varchar("email").notNull().unique(),
-  refreshToken: varchar("refresh_token").notNull(),
-  status: gmailAccountStatus("status").notNull().default("active"),
-});
+export const gmailAccounts = pgTable(
+  "gmail_account",
+  {
+    id: varchar("id").primaryKey(),
+    userId: varchar("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    email: varchar("email").notNull().unique(),
+    refreshToken: varchar("refresh_token").notNull(),
+    status: gmailAccountStatus("status").notNull().default("active"),
+  },
+  (gmailAccounts) => {
+    return {
+      index: uniqueIndex("email_idx").on(gmailAccounts.email),
+    };
+  },
+);
 
 export const gmailAccountRelations = relations(gmailAccounts, ({ one }) => ({
   user: one(users, {
@@ -54,24 +69,32 @@ export const gmailAccountRelations = relations(gmailAccounts, ({ one }) => ({
   }),
 }));
 
-export const apiKeys = pgTable("api_keys", {
-  id: varchar("id").primaryKey(),
-  userId: varchar("user_id")
-    .notNull()
-    .references(() => users.id, { onDelete: "cascade" }),
-  gmailAccount: varchar("gmail_id")
-    .notNull()
-    .references(() => gmailAccounts.id, { onDelete: "cascade" }),
-  name: varchar("name").notNull(),
-  prefix: varchar("prefix").notNull().unique(),
-  apiKey: varchar("api_key").notNull().unique(),
-  createdAt: timestamp("created_at", {
-    withTimezone: true,
-    mode: "date",
-  })
-    .notNull()
-    .defaultNow(),
-});
+export const apiKeys = pgTable(
+  "api_keys",
+  {
+    id: varchar("id").primaryKey(),
+    userId: varchar("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    gmailAccount: varchar("gmail_id")
+      .notNull()
+      .references(() => gmailAccounts.id, { onDelete: "cascade" }),
+    name: varchar("name").notNull(),
+    prefix: varchar("prefix").notNull().unique(),
+    apiKey: varchar("api_key").notNull().unique(),
+    createdAt: timestamp("created_at", {
+      withTimezone: true,
+      mode: "date",
+    })
+      .notNull()
+      .defaultNow(),
+  },
+  (apiKeys) => {
+    return {
+      index: uniqueIndex("api_key_idx").on(apiKeys.apiKey),
+    };
+  },
+);
 
 export const apiKeysRelations = relations(apiKeys, ({ one }) => ({
   user: one(users, {

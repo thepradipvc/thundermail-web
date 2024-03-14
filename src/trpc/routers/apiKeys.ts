@@ -1,5 +1,7 @@
 import { apiKeys, gmailAccounts } from "@/db/schema";
+import { hash } from "@/lib/crypto-helpers";
 import { TRPCError } from "@trpc/server";
+import { randomBytes } from "crypto";
 import { eq } from "drizzle-orm";
 import { generateId } from "lucia";
 import { z } from "zod";
@@ -35,24 +37,19 @@ export const apiKeysRouter = createTRPCRouter({
         });
       }
 
-      const apiKey =
-        Math.random().toString(36).substring(2, 15) +
-        Math.random().toString(36).substring(2, 15);
-      const prefix = apiKey.substring(0, 10);
+      const apiKey = `git_${randomBytes(16).toString("hex")}`;
+      const prefix = apiKey.substring(0, 12);
 
-      const createdAPIKey = await db
-        .insert(apiKeys)
-        .values({
-          id: generateId(15),
-          userId: user.id,
-          gmailAccount: gmailAccountId,
-          name,
-          prefix,
-          apiKey,
-        })
-        .returning();
+      await db.insert(apiKeys).values({
+        id: generateId(15),
+        userId: user.id,
+        gmailAccount: gmailAccountId,
+        name,
+        prefix,
+        apiKey: hash(apiKey),
+      });
 
-      return createdAPIKey[0];
+      return { apiKey };
     }),
 
   getUserAPIKeys: protectedProcedure.query(async ({ ctx }) => {
