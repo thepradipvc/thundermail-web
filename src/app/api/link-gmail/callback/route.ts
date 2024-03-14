@@ -1,6 +1,7 @@
 import { validateUser } from "@/auth";
 import { db } from "@/db";
 import { gmailAccounts } from "@/db/schema";
+import { encrypt } from "@/lib/crypto-helpers";
 import { eq } from "drizzle-orm";
 import { generateId } from "lucia";
 import { NextRequest } from "next/server";
@@ -53,9 +54,14 @@ export async function GET(request: NextRequest) {
     });
 
     if (existingAccount && user.id == existingAccount.userId) {
+      const encryptedToken = encrypt(
+        tokens.refresh_token,
+        process.env.TOKENS_ENCRYPTION_KEY,
+      );
+
       await db
         .update(gmailAccounts)
-        .set({ refreshToken: tokens.refresh_token, status: "active" });
+        .set({ refreshToken: encryptedToken, status: "active" });
 
       return new Response(null, {
         status: 302,
@@ -76,10 +82,15 @@ export async function GET(request: NextRequest) {
     }
 
     const gmailAccountId = generateId(15);
+    const encryptedToken = encrypt(
+      tokens.refresh_token,
+      process.env.TOKENS_ENCRYPTION_KEY,
+    );
+
     await db.insert(gmailAccounts).values({
       id: gmailAccountId,
       email: googleUser.email,
-      refreshToken: tokens.refresh_token,
+      refreshToken: encryptedToken,
       status: "active",
       userId: user.id,
     });

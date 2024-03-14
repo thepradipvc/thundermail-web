@@ -18,7 +18,7 @@ export const sessions = pgTable("session", {
   id: varchar("id").primaryKey(),
   userId: varchar("user_id")
     .notNull()
-    .references(() => users.id),
+    .references(() => users.id, { onDelete: "cascade" }),
   expiresAt: timestamp("expires_at", {
     withTimezone: true,
     mode: "date",
@@ -83,3 +83,16 @@ export const apiKeysRelations = relations(apiKeys, ({ one }) => ({
     references: [gmailAccounts.id],
   }),
 }));
+
+// export const emails = pgTable("email", {
+//   id: varchar("id").primaryKey(),
+//   // gmailAccountId: varchar("gmail_account_id")
+//   //   .notNull()
+//   //   .references(() => gmailAccounts.id, { onDelete: "cascade" }),
+//   createdAt: timestamp("created_at", {
+//     withTimezone: true,
+//     mode: "date",
+//   })
+//     .notNull()
+//     .defaultNow(),
+// });
