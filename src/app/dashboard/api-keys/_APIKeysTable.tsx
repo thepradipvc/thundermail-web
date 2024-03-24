@@ -59,21 +59,6 @@ export const columns: ColumnDef<Account>[] = [
     },
   },
   {
-    accessorKey: "gmailAccount",
-    header: ({ column }) => {
-      return (
-        <Button
-          className="px-0 hover:bg-transparent"
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Associated Account
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
-  },
-  {
     accessorKey: "prefix",
     header: () => <div className="text-left">Token</div>,
     cell: ({ row }) => {
@@ -98,7 +83,7 @@ export const columns: ColumnDef<Account>[] = [
         <div className="text-left">
           <TooltipProvider>
             <Tooltip>
-              <TooltipTrigger>
+              <TooltipTrigger suppressHydrationWarning>
                 {getRelativeTime(apiKey.createdAt)}
               </TooltipTrigger>
               <TooltipContent>

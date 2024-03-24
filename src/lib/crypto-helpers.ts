@@ -21,6 +21,6 @@ export const decrypt = (encryptedText: string, secretKey: string) => {
   return decrypted;
 };
 
-export const hash = (input: string) => {
+export const hash = (input: string): string => {
   return createHash("sha256").update(input).digest("hex");
 };

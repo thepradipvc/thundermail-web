@@ -33,7 +33,6 @@ type Props = {
 
 const AddAPIKeyDialog = ({ gmailAccounts }: Props) => {
   const [name, setName] = useState("");
-  const [gmailAccount, setGmailAccount] = useState("");
   const [apiKey, setApiKey] = useState<string | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
@@ -45,7 +44,6 @@ const AddAPIKeyDialog = ({ gmailAccounts }: Props) => {
         setIsDialogOpen(false);
         setApiKey(apiKey);
         setName("");
-        setGmailAccount("");
         utils.apiKeys.getUserAPIKeys.invalidate();
       },
       onError: ({ message }) => {
@@ -61,12 +59,7 @@ const AddAPIKeyDialog = ({ gmailAccounts }: Props) => {
       return;
     }
 
-    if (gmailAccount === "") {
-      toast({ description: "Please select an account" });
-      return;
-    }
-
-    addAPIKey({ name, gmailAccountId: gmailAccount });
+    addAPIKey({ name });
   };
 
   return (
@@ -92,25 +85,6 @@ const AddAPIKeyDialog = ({ gmailAccounts }: Props) => {
                   onChange={(e) => setName(e.target.value)}
                   required
                 />
-              </div>
-              <div className="grid flex-1 gap-2">
-                <Label htmlFor="account">Account</Label>
-                <Select
-                  defaultValue={gmailAccount}
-                  onValueChange={(value) => setGmailAccount(value)}
-                  required
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Pick account for API Key usage" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {gmailAccounts.map((account) => (
-                      <SelectItem key={account.id} value={account.id}>
-                        {account.email}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
               </div>
             </div>
             <DialogFooter className="sm:justify-start">

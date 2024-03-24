@@ -47,3 +47,27 @@ export function getTime(date: Date) {
   let formattedDate = dateFormatter.format(date.getTime());
   return `${formattedDate.split("at")[0]} - ${formattedDate.split("at")[1].toUpperCase()}`;
 }
+
+export const validateEmail = (input: string) => {
+  const onlyEmailPattern: RegExp = /^[\w\.-]+@[\w\.-]+\.\w+$/;
+  const emailPatternWithName: RegExp = /^[\w\s]+ <[\w\.-]+@[\w\.-]+\.\w+>$/;
+
+  if (onlyEmailPattern.test(input) || emailPatternWithName.test(input)) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
+// This works because the input is validated by validateEmail function
+export const extractEmailAddress = (input: string) => {
+  // If the input contains '<' and '>', assume it's in the 'Name <email@example.com>' format
+  if (input.includes("<") && input.includes(">")) {
+    return input
+      .substring(input.lastIndexOf("<") + 1, input.lastIndexOf(">"))
+      .trim();
+  }
+
+  // Otherwise, assume it's in the 'email@example.com' format
+  return input.trim();
+};

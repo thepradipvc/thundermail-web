@@ -1,14 +1,15 @@
-import { relations } from "drizzle-orm";
+import { InferInsertModel, InferSelectModel, relations } from "drizzle-orm";
 import {
   index,
   pgEnum,
   pgTable,
+  text,
   timestamp,
   uniqueIndex,
   varchar,
 } from "drizzle-orm/pg-core";
 
-export const users = pgTable("user", {
+export const users = pgTable("users", {
   id: varchar("id").primaryKey(),
   googleId: varchar("google_id").notNull().unique(),
   username: varchar("username").notNull(),
@@ -19,18 +20,27 @@ export const userRelations = relations(users, ({ many }) => ({
   gmailAccounts: many(gmailAccounts),
   sessions: many(sessions),
   apiKeys: many(apiKeys),
+  emails: many(emails),
 }));
 
-export const sessions = pgTable("session", {
-  id: varchar("id").primaryKey(),
-  userId: varchar("user_id")
-    .notNull()
-    .references(() => users.id, { onDelete: "cascade" }),
-  expiresAt: timestamp("expires_at", {
-    withTimezone: true,
-    mode: "date",
-  }).notNull(),
-});
+export const sessions = pgTable(
+  "sessions",
+  {
+    id: varchar("id").primaryKey(),
+    userId: varchar("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    expiresAt: timestamp("expires_at", {
+      withTimezone: true,
+      mode: "date",
+    }).notNull(),
+  },
+  (session) => {
+    return {
+      userIndex: index("user_session_idx").on(session.userId),
+    };
+  },
+);
 
 export const sessionRelations = relations(sessions, ({ one }) => ({
   user: one(users, {
@@ -39,13 +49,13 @@ export const sessionRelations = relations(sessions, ({ one }) => ({
   }),
 }));
 
-export const gmailAccountStatus = pgEnum("gmailAccountStatus", [
+export const gmailAccountStatus = pgEnum("gmail_account_status", [
   "active",
   "access revoked",
 ]);
 
 export const gmailAccounts = pgTable(
-  "gmail_account",
+  "gmail_accounts",
   {
     id: varchar("id").primaryKey(),
     userId: varchar("user_id")
@@ -57,7 +67,8 @@ export const gmailAccounts = pgTable(
   },
   (gmailAccounts) => {
     return {
-      index: uniqueIndex("email_idx").on(gmailAccounts.email),
+      emailIndex: uniqueIndex("email_gmailaccount_idx").on(gmailAccounts.email),
+      userIndex: index("user_gmailaccount_idx").on(gmailAccounts.userId),
     };
   },
 );
@@ -76,9 +87,6 @@ export const apiKeys = pgTable(
     userId: varchar("user_id")
       .notNull()
       .references(() => users.id, { onDelete: "cascade" }),
-    gmailAccount: varchar("gmail_id")
-      .notNull()
-      .references(() => gmailAccounts.id, { onDelete: "cascade" }),
     name: varchar("name").notNull(),
     prefix: varchar("prefix").notNull().unique(),
     apiKey: varchar("api_key").notNull().unique(),
@@ -91,7 +99,8 @@ export const apiKeys = pgTable(
   },
   (apiKeys) => {
     return {
-      index: uniqueIndex("api_key_idx").on(apiKeys.apiKey),
+      apiKeyIndex: uniqueIndex("api_key_idx").on(apiKeys.apiKey),
+      userIndex: index("user_apikey_idx").on(apiKeys.userId),
     };
   },
 );
@@ -101,21 +110,84 @@ export const apiKeysRelations = relations(apiKeys, ({ one }) => ({
     fields: [apiKeys.userId],
     references: [users.id],
   }),
-  gmailAccount: one(gmailAccounts, {
-    fields: [apiKeys.gmailAccount],
-    references: [gmailAccounts.id],
-  }),
 }));
 
-// export const emails = pgTable("email", {
-//   id: varchar("id").primaryKey(),
-//   // gmailAccountId: varchar("gmail_account_id")
-//   //   .notNull()
-//   //   .references(() => gmailAccounts.id, { onDelete: "cascade" }),
-//   createdAt: timestamp("created_at", {
-//     withTimezone: true,
-//     mode: "date",
-//   })
-//     .notNull()
-//     .defaultNow(),
-// });
+// THINK: what about showing emails based on API key? Also need to show emails based on user_id but do I delete emails if user is deleted? what if user tries to access API to retrieve emails through API key
+
+// Emails related schemas
+export const emails = pgTable(
+  "emails",
+  {
+    id: varchar("id").primaryKey(),
+    userId: varchar("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    from: varchar("from").notNull(),
+    subject: varchar("subject").notNull(),
+    textContent: text("text_content"),
+    htmlContent: text("html_content"),
+    replyTo: text("reply_to"),
+    createdAt: timestamp("created_at", {
+      withTimezone: true,
+      mode: "date",
+    })
+      .notNull()
+      .defaultNow(),
+  },
+  (emails) => {
+    return {
+      userIndex: index("user_email_idx").on(emails.userId),
+      fromIndex: index("from_email_idx").on(emails.from),
+      createdAtIndex: index("email_created_at_idx").on(emails.createdAt),
+    };
+  },
+);
+
+export const emailRelations = relations(emails, ({ one, many }) => ({
+  user: one(users, {
+    fields: [emails.userId],
+    references: [users.id],
+  }),
+  recipients: many(emailRecipients),
+}));
+
+export const emailStatus = pgEnum("email_status", [
+  "queued",
+  "delivered",
+  "rejected",
+]);
+export const recipientType = pgEnum("recipient_type", ["to", "cc", "bcc"]);
+
+export const emailRecipients = pgTable(
+  "email_recipients",
+  {
+    id: varchar("id").primaryKey(),
+    emailId: varchar("email_id")
+      .notNull()
+      .references(() => emails.id, { onDelete: "cascade" }),
+    recepientEmail: varchar("recipient_email").notNull(),
+    type: recipientType("type").notNull(),
+    status: emailStatus("status").notNull().default("queued"),
+  },
+  (emailRecipients) => {
+    return {
+      emailIdIndex: index("email_id_recipient_idx").on(emailRecipients.emailId),
+      recipientEmailIndex: index("recipient_email_idx").on(
+        emailRecipients.recepientEmail,
+      ),
+    };
+  },
+);
+
+export const emailRecipientRelations = relations(
+  emailRecipients,
+  ({ one }) => ({
+    email: one(emails, {
+      fields: [emailRecipients.emailId],
+      references: [emails.id],
+    }),
+  }),
+);
+
+export type EmailStatus = InferSelectModel<typeof emailRecipients>["status"];
+export type EmailRecipient = InferInsertModel<typeof emailRecipients>;
