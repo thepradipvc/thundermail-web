@@ -2,7 +2,7 @@ import { generateCodeVerifier, generateState } from "arctic";
 import { cookies } from "next/headers";
 import { google } from "./_googleAuthInstance";
 
-export async function GET(): Promise<Response> {
+export async function GET() {
   const state = generateState();
   const codeVerifier = generateCodeVerifier();
   const url = await google.createAuthorizationURL(state, codeVerifier, {
