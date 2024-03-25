@@ -5,29 +5,8 @@
     {
       "idx": 0,
       "version": "5",
-      "when": 1709277101169,
-      "tag": "0000_spotty_luke_cage",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "5",
-      "when": 1710175290606,
-      "tag": "0001_far_bedlam",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "5",
-      "when": 1710426210822,
-      "tag": "0002_colossal_daimon_hellstrom",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "5",
-      "when": 1711284679768,
-      "tag": "0003_jittery_spacker_dave",
+      "when": 1711367154075,
+      "tag": "0000_cheerful_typhoid_mary",
       "breakpoints": true
     }
   ]
