@@ -35,6 +35,8 @@
     "@trpc/react-query": "^10.45.1",
     "@trpc/server": "^10.45.1",
     "@types/aws-lambda": "^8.10.136",
+    "@upstash/ratelimit": "^1.0.3",
+    "@upstash/redis": "^1.29.0",
     "@vercel/analytics": "^1.2.2",
     "arctic": "^1.2.0",
     "class-variance-authority": "^0.7.0",

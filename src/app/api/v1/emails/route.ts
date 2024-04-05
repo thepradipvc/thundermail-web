@@ -8,7 +8,8 @@ import {
 } from "@/db/schema";
 import { hash } from "@/lib/crypto-helpers";
 import { sqsClient } from "@/lib/sqs-client";
-import { validateEmail, extractEmailAddress } from "@/lib/utils";
+import { emailSendingQuotaLimit, ratelimit } from "@/lib/upstash-ratelimit";
+import { extractEmailAddress, validateEmail } from "@/lib/utils";
 import { SendMessageCommand } from "@aws-sdk/client-sqs";
 import { randomUUID } from "crypto";
 import { and, eq } from "drizzle-orm";
@@ -16,6 +17,31 @@ import { headers } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
+  // This header only works on vercel deployments
+  const ip = request.headers.get("x-forwarded-for") ?? "";
+  const { success, reset, limit, remaining } = await ratelimit.limit(ip);
+  const waitTime = Math.floor((reset - Date.now()) / 1000);
+
+  if (!success) {
+    return NextResponse.json(
+      {
+        statusCode: 429,
+        message:
+          "Too many requests. Please limit the number of requests per second.",
+        name: "rate_limit_exceeded",
+      },
+      {
+        status: 429,
+        headers: {
+          "ratelimit-limit": String(limit),
+          "ratelimit-remaining": String(remaining),
+          "ratelimit-reset": String(waitTime),
+          "retry-after": String(waitTime),
+        },
+      },
+    );
+  }
+
   const headersList = headers();
   const auth = headersList.get("Authorization");
   if (!auth) {
@@ -41,12 +67,29 @@ export async function POST(request: NextRequest) {
   if (!apiKeyRecord) {
     return NextResponse.json(
       {
-        statusCode: 400,
+        statusCode: 403,
         message: "API key is invalid",
-        name: "validation_error",
+        name: "invalid_api_Key",
       },
       {
-        status: 400,
+        status: 403,
+      },
+    );
+  }
+
+  const { success: quotaLeft } = await emailSendingQuotaLimit.limit(
+    apiKeyRecord.userId,
+  );
+
+  if (!quotaLeft) {
+    return NextResponse.json(
+      {
+        statusCode: 429,
+        message: "You have reached your daily email sending quota.",
+        name: "daily_quota_exceeded",
+      },
+      {
+        status: 429,
       },
     );
   }
@@ -193,7 +236,7 @@ export async function POST(request: NextRequest) {
       {
         statusCode: 403,
         message: `The \`${fromAddress}\` gmail account is not linked to your account. Please link the account before sending emails.`,
-        name: "validation_error",
+        name: "invalid_from_address",
       },
       {
         status: 403,
@@ -251,6 +294,11 @@ export async function POST(request: NextRequest) {
     },
     {
       status: 200,
+      headers: {
+        "ratelimit-limit": String(limit),
+        "ratelimit-remaining": String(remaining),
+        "ratelimit-reset": String(waitTime),
+      },
     },
   );
 }

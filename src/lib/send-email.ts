@@ -35,6 +35,7 @@ export const sendEmail = async (emailId: string) => {
 
   if (!gmailAccount) {
     console.log("Gmail account not linked");
+    // TODO: Handle this case by sending an email to the user
     return;
   }
 
