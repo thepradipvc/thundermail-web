@@ -1,5 +1,6 @@
 // tailwind helpers
 import { type ClassValue, clsx } from "clsx";
+import { sql } from "drizzle-orm";
 import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
@@ -70,4 +71,18 @@ export const extractEmailAddress = (input: string) => {
 
   // Otherwise, assume it's in the 'email@example.com' format
   return input.trim();
+};
+
+// For SQL queries
+export const getIntervalValue = (timeRange: "d" | "7d" | "15d" | "30d") => {
+  switch (timeRange) {
+    case "7d":
+      return sql`INTERVAL '7 DAY'`;
+    case "15d":
+      return sql`INTERVAL '15 DAY'`;
+    case "30d":
+      return sql`INTERVAL '30 DAY'`;
+    default:
+      return sql`INTERVAL '30 DAY'`;
+  }
 };

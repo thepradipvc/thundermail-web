@@ -1,12 +1,24 @@
-import { signout } from "@/auth/signout";
-import SignoutButton from "@/components/SignoutButton";
-import { Button } from "@/components/ui/button";
+import { serverClient } from "@/trpc/server-client";
+import { z } from "zod";
+import { EmailStatsChart } from "./_EmailStatsChart";
 
-const page = () => {
+const ranges = ["d", "7d", "15d", "30d"] as const;
+const rangeSchema = z.enum(ranges).optional().default("d");
+
+const page = async ({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | string[] | undefined };
+}) => {
+  const range = rangeSchema.parse(searchParams.range || "d");
+  const emailStats = await (await serverClient).emails.getStats({ range });
+
   return (
-    <main className="flex h-full flex-col items-center">
-      <h1 className="mb-20 text-5xl">Coming Soon</h1>
-      <SignoutButton signout={signout} />
+    <main className="mx-auto flex max-w-6xl flex-col justify-center">
+      <div className="mx-8 mt-8 flex flex-col justify-between">
+        <h1 className="text-3xl font-bold">Overview</h1>
+        <EmailStatsChart emailStats={emailStats} />
+      </div>
     </main>
   );
 };
