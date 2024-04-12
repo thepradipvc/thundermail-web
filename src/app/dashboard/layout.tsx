@@ -10,7 +10,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <div className="min-w-56 border-r border-r-gray-800 px-2">
         <SideNav />
       </div>
-      <div className="min-w-max flex-grow overflow-y-auto p-6">{children}</div>
+      <div className="min-w-fit flex-grow overflow-y-auto p-6">{children}</div>
     </div>
   );
 }

@@ -64,7 +64,7 @@ export const EmailStatsChart = ({
 
   return (
     <div className="mt-8 rounded-lg border border-gray-800 p-5">
-      <div className="mx-4 mb-6 flex justify-between">
+      <div className="mx-4 mb-6 flex justify-between gap-16">
         <div className="flex flex-col">
           <span className="text-muted-foreground">Total Emails</span>
           <span className="text-4xl">{totalEmails}</span>
@@ -108,26 +108,30 @@ export const EmailStatsChart = ({
         </BarChart>
       </ResponsiveContainer>
       <div className="mr-8 mt-8 flex justify-end gap-4">
-        <div className="flex items-center gap-2">
-          <span
-            aria-hidden
-            className="h-2 w-2 rounded-full bg-[#ff9592]"
-          ></span>
-          <span className="sr-only">Rejected</span>
-          <span className="text-sm text-muted-foreground">
-            {rejectedEmailsPercentage}%
-          </span>
-        </div>
-        <div className="flex items-center gap-2">
-          <span
-            aria-hidden
-            className="h-2 w-2 rounded-full bg-[#46fea5d4]"
-          ></span>
-          <span className="sr-only">Delivered</span>
-          <span className="text-sm text-muted-foreground">
-            {deliveredEmailsPercentage}%
-          </span>
-        </div>
+        {totalEmails > 0 && (
+          <>
+            <div className="flex items-center gap-2">
+              <span
+                aria-hidden
+                className="h-2 w-2 rounded-full bg-[#ff9592]"
+              ></span>
+              <span className="sr-only">Rejected</span>
+              <span className="text-sm text-muted-foreground">
+                {rejectedEmailsPercentage}%
+              </span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span
+                aria-hidden
+                className="h-2 w-2 rounded-full bg-[#46fea5d4]"
+              ></span>
+              <span className="sr-only">Delivered</span>
+              <span className="text-sm text-muted-foreground">
+                {deliveredEmailsPercentage}%
+              </span>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
