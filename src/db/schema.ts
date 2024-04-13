@@ -120,7 +120,7 @@ export const emails = pgTable(
     userId: varchar("user_id")
       .notNull()
       .references(() => users.id, { onDelete: "cascade" }),
-    apiKeyId: varchar("api_key").references(() => apiKeys.id, {
+    apiKeyId: varchar("api_key_id").references(() => apiKeys.id, {
       onDelete: "set null",
     }),
     from: varchar("from").notNull(),
