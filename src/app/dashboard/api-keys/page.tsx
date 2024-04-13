@@ -24,7 +24,7 @@ const Page = async () => {
         <h1 className="text-2xl font-bold">API Keys</h1>
         <AddAPIKeyDialog gmailAccounts={gmailAccounts} />
       </div>
-      <APIKeysTable user={user} apiKeys={apiKeys} />
+      <APIKeysTable apiKeys={apiKeys} />
     </main>
   );
 };

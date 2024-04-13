@@ -44,12 +44,12 @@ export function DataTable<TData, TValue>({
   });
 
   return (
-    <div className="min-w-max rounded-md border">
+    <div className="min-w-max rounded-md border border-gray-800">
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow
-              className="bg-accent hover:bg-accent"
+              className="border-gray-800 bg-accent hover:bg-accent"
               key={headerGroup.id}
             >
               {headerGroup.headers.map((header) => {
@@ -71,7 +71,7 @@ export function DataTable<TData, TValue>({
           {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => (
               <TableRow
-                className="hover:bg-transparent"
+                className="border-gray-800 hover:bg-transparent"
                 key={row.id}
                 data-state={row.getIsSelected() && "selected"}
               >
@@ -83,7 +83,7 @@ export function DataTable<TData, TValue>({
               </TableRow>
             ))
           ) : (
-            <TableRow className="hover:bg-transparent">
+            <TableRow className="border-gray-800 hover:bg-transparent">
               <TableCell colSpan={columns.length} className="h-24 text-center">
                 {emptyTableMessage || "No results."}
               </TableCell>

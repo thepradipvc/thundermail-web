@@ -248,6 +248,7 @@ export async function POST(request: NextRequest) {
   await db.insert(emails).values({
     id: emailId,
     userId: apiKeyRecord.userId,
+    apiKeyId: apiKeyRecord.id,
     from: reqBody.from,
     subject: reqBody.subject,
     replyTo,

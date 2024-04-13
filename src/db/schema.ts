@@ -112,8 +112,6 @@ export const apiKeysRelations = relations(apiKeys, ({ one }) => ({
   }),
 }));
 
-// THINK: what about showing emails based on API key? Also need to show emails based on user_id but do I delete emails if user is deleted? what if user tries to access API to retrieve emails through API key
-
 // Emails related schemas
 export const emails = pgTable(
   "emails",
@@ -122,6 +120,9 @@ export const emails = pgTable(
     userId: varchar("user_id")
       .notNull()
       .references(() => users.id, { onDelete: "cascade" }),
+    apiKeyId: varchar("api_key").references(() => apiKeys.id, {
+      onDelete: "set null",
+    }),
     from: varchar("from").notNull(),
     subject: varchar("subject").notNull(),
     textContent: text("text_content"),
@@ -137,8 +138,10 @@ export const emails = pgTable(
   (emails) => {
     return {
       userIndex: index("user_email_idx").on(emails.userId),
+      apiKeyIndex: index("apikey_email_idx").on(emails.apiKeyId),
       fromIndex: index("from_email_idx").on(emails.from),
       createdAtIndex: index("email_created_at_idx").on(emails.createdAt),
+      emailSubjectIndex: index("email_subject_idx").on(emails.subject),
     };
   },
 );

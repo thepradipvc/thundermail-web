@@ -1,21 +1,20 @@
 "use client";
 
-import { trpc } from "@/trpc/react-client";
-import { RouterOutputs } from "@/trpc/utils";
-import { User } from "lucia";
-import { DataTable } from "@/components/ui/data-table";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { DataTable } from "@/components/ui/data-table";
 import { toast } from "@/components/ui/use-toast";
+import { trpc } from "@/trpc/react-client";
+import { RouterOutputs } from "@/trpc/utils";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
 
+type GmailAccount = RouterOutputs["gmailAccounts"]["getUserAccounts"][number];
 type Props = {
-  user: User;
-  gmailAccounts: RouterOutputs["gmailAccounts"]["getUserAccounts"];
+  gmailAccounts: GmailAccount[];
 };
 
-const AccountsTable = ({ user, gmailAccounts }: Props) => {
+const AccountsTable = ({ gmailAccounts }: Props) => {
   const { data: accounts } = trpc.gmailAccounts.getUserAccounts.useQuery(
     undefined,
     {
@@ -36,9 +35,7 @@ const AccountsTable = ({ user, gmailAccounts }: Props) => {
 
 export default AccountsTable;
 
-type Account = RouterOutputs["gmailAccounts"]["getUserAccounts"][number];
-
-export const columns: ColumnDef<Account>[] = [
+export const columns: ColumnDef<GmailAccount>[] = [
   {
     accessorKey: "email",
     header: ({ column }) => {

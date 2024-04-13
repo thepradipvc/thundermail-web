@@ -27,7 +27,7 @@ const Page = async () => {
           </Link>
         </Button>
       </div>
-      <AccountsTable user={user} gmailAccounts={gmailAccounts} />
+      <AccountsTable gmailAccounts={gmailAccounts} />
     </main>
   );
 };

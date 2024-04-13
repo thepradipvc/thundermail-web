@@ -13,17 +13,16 @@ import { getRelativeTime, getTime } from "@/lib/utils";
 import { trpc } from "@/trpc/react-client";
 import { RouterOutputs } from "@/trpc/utils";
 import { ColumnDef } from "@tanstack/react-table";
-import { User } from "lucia";
 import { ArrowUpDown } from "lucide-react";
 import APIKeyActions from "./_APIKeyActions";
 
+type APIKey = RouterOutputs["apiKeys"]["getUserAPIKeys"][number];
 type Props = {
-  user: User;
-  apiKeys: RouterOutputs["apiKeys"]["getUserAPIKeys"];
+  apiKeys: APIKey[];
 };
 
-const APIKeysTable = ({ user, apiKeys }: Props) => {
-  const { data: accounts } = trpc.apiKeys.getUserAPIKeys.useQuery(undefined, {
+const APIKeysTable = ({ apiKeys }: Props) => {
+  const { data: keys } = trpc.apiKeys.getUserAPIKeys.useQuery(undefined, {
     initialData: apiKeys,
   });
 
@@ -31,7 +30,7 @@ const APIKeysTable = ({ user, apiKeys }: Props) => {
     <div className="mx-auto w-full py-5">
       <DataTable
         columns={columns}
-        data={accounts}
+        data={keys}
         emptyTableMessage="You've not created any API keys yet. Click the button above to create one."
       />
     </div>
@@ -40,9 +39,7 @@ const APIKeysTable = ({ user, apiKeys }: Props) => {
 
 export default APIKeysTable;
 
-type Account = RouterOutputs["apiKeys"]["getUserAPIKeys"][number];
-
-export const columns: ColumnDef<Account>[] = [
+export const columns: ColumnDef<APIKey>[] = [
   {
     accessorKey: "name",
     header: ({ column }) => {
