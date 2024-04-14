@@ -1,3 +1,4 @@
+import { validateUser } from "@/auth";
 import SigninForm from "./_SigninForm";
 import {
   Card,
@@ -6,8 +7,14 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { redirect } from "next/navigation";
 
 const Page = async () => {
+  const { user } = await validateUser();
+  if (user) {
+    return redirect("/dashboard");
+  }
+
   return (
     <main className="grid min-h-svh place-items-center">
       <Card className="mx-4 bg-zinc-950 px-2 sm:p-10">
