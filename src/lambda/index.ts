@@ -12,7 +12,7 @@ export const handler: SQSHandler = async (event) => {
     try {
       await sendEmail(emailId);
     } catch (error: any) {
-      console.log(error.message);
+      console.log("Error: ", error.message);
       response.batchItemFailures.push({
         itemIdentifier: messageId,
       });
