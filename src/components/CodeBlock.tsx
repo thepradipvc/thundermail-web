@@ -234,7 +234,11 @@ const CodeBlock = ({ language }: CodeBlockProps) => {
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger
-              onClick={() => !isCopied && handleCopy()}
+              onClick={() => {
+                if (!isCopied) {
+                  handleCopy();
+                }
+              }}
               disabled={isCopied}
               className={cn(
                 "my-2 flex w-8 items-center justify-center self-stretch rounded-md p-1",
