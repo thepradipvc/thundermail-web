@@ -3,7 +3,7 @@ import Pagination from "@/components/Pagination";
 import { db } from "@/db";
 import { emailRecipients, emails } from "@/db/schema";
 import { serverClient } from "@/trpc/server-client";
-import { eq, gte } from "drizzle-orm";
+import { and, eq, gte } from "drizzle-orm";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import EmailsTable from "./_EmailsTable";
@@ -49,7 +49,9 @@ const Page = async ({ searchParams }: { searchParams: SearchParams }) => {
     .innerJoin(emailRecipients, eq(emails.id, emailRecipients.emailId));
 
   if (timeFilter) {
-    query.where(gte(emails.createdAt, timeFilter));
+    query.where(
+      and(eq(emails.userId, user.id), gte(emails.createdAt, timeFilter)),
+    );
   }
 
   const emailsData = refineData(await query.execute());

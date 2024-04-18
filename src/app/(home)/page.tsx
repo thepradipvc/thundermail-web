@@ -136,7 +136,10 @@ const Home = async () => {
           <div>
             The source code is available on{" "}
             <Button variant="link" className="p-0 text-base underline" asChild>
-              <a href="https://twitter.com/thepradipvc" target="_blank">
+              <a
+                href="https://github.com/thepradipvc/gmailit-web"
+                target="_blank"
+              >
                 Github.
               </a>
             </Button>
