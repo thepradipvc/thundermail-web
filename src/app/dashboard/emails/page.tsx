@@ -52,6 +52,8 @@ const Page = async ({ searchParams }: { searchParams: SearchParams }) => {
     query.where(
       and(eq(emails.userId, user.id), gte(emails.createdAt, timeFilter)),
     );
+  } else {
+    query.where(eq(emails.userId, user.id));
   }
 
   const emailsData = refineData(await query.execute());
