@@ -3,18 +3,25 @@ import { createTRPCRouter, protectedProcedure } from "..";
 import { db } from "@/db";
 import { z } from "zod";
 import { getIntervalValue } from "@/lib/utils";
+import { emails } from "@/db/schema";
 
 export const emailsRouter = createTRPCRouter({
   getStats: protectedProcedure
     .input(z.object({ range: z.enum(["d", "7d", "15d", "30d"]) }))
-    .query(async ({ input }) => {
+    .query(async ({ input, ctx }) => {
       const { range } = input;
+      const {
+        user: { id: userId },
+      } = ctx;
 
-      return getEmailStats(range);
+      return getEmailStats(range, userId);
     }),
 });
 
-export const getEmailStats = async (timeRange: "d" | "7d" | "15d" | "30d") => {
+export const getEmailStats = async (
+  timeRange: "d" | "7d" | "15d" | "30d",
+  userId: string,
+) => {
   const hourMode = timeRange === "d";
   const intervalValue = getIntervalValue(timeRange);
 
@@ -38,6 +45,7 @@ export const getEmailStats = async (timeRange: "d" | "7d" | "15d" | "30d") => {
         } AS date_trunc
       FROM
         emails
+      WHERE ${sql`${emails.userId} = ${userId}`}
     ),
     all_times AS (
       ${
