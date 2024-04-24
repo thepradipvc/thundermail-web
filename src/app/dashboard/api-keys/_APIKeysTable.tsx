@@ -95,7 +95,11 @@ export const columns: ColumnDef<APIKey>[] = [
   {
     id: "actions",
     cell: ({ row }) => {
-      return <APIKeyActions apiKey={row.original} />;
+      return (
+        <div className="text-end">
+          <APIKeyActions apiKey={row.original} />
+        </div>
+      );
     },
   },
 ];
