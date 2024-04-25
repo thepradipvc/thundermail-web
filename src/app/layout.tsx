@@ -17,6 +17,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${GeistSans.className} dark antialiased`}>
+      <head>
+        <meta
+          name="google-site-verification"
+          content="1Rr8mfLCZQaB9ggACszgCUpiZSGikGifESieH19HRNk"
+        />
+      </head>
       <body className="min-h-svh">
         <TRPCReactProvider>
           {children}
