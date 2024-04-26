@@ -4,6 +4,7 @@ import MaxWidthWrapper from "./MaxWidthWrapper";
 import { Suspense } from "react";
 import { Skeleton } from "./ui/skeleton";
 import NavbarUserActions from "./NavbarUserActions";
+import { Button } from "./ui/button";
 
 export default function Navbar() {
   return (
@@ -20,9 +21,30 @@ export default function Navbar() {
             />
           </Link>
 
-          <Suspense fallback={<Skeleton className="h-9 w-24 rounded-md" />}>
-            <NavbarUserActions />
-          </Suspense>
+          <div className="flex gap-8">
+            <ul className="hidden items-center gap-4 sm:flex">
+              <li>
+                <Link
+                  href="/privacy-policy"
+                  className="underline-offset-4 focus-within:underline focus-within:outline-none hover:underline"
+                >
+                  Privacy Policy
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/terms-of-service"
+                  className="underline-offset-4 focus-within:underline focus-within:outline-none hover:underline"
+                >
+                  Terms of Service
+                </Link>
+              </li>
+            </ul>
+
+            <Suspense fallback={<Skeleton className="h-9 w-24 rounded-md" />}>
+              <NavbarUserActions />
+            </Suspense>
+          </div>
         </nav>
       </MaxWidthWrapper>
     </header>
