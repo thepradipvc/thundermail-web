@@ -61,6 +61,7 @@ const Page = async ({ searchParams }: { searchParams: SearchParams }) => {
   let page =
     parseInt(searchParams.page!) >= 1 ? parseInt(searchParams.page!) : 1;
   page = page > totalPages ? totalPages : page;
+  page = page < 1 ? 1 : page;
   const offset = (page - 1) * pageSize;
 
   const withPagination = <T extends PgSelect>(qb: T) => {
