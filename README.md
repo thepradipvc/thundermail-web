@@ -1,29 +1,29 @@
-![Gmailit Cover](/screenshots/homepage.png)
+![Thunder Mail Cover](/screenshots/homepage.png)
 
-<div style="font-size: 36px" align="center"><strong>Gmailit</strong></div>
+<div style="font-size: 36px" align="center"><strong>Thunder Mail</strong></div>
 <div align="center">
-<a href="https://gmailit.vercel.app">Website</a> 
+<a href="https://thundermail.vercel.app">Website</a> 
 <span> · </span>
-<a href="https://github.com/thepradipvc/gmailit-web">GitHub</a> 
+<a href="https://github.com/thepradipvc/thundermail-web">GitHub</a> 
 </div>
 
 ## Introduction
 
-Gmailit let's you send emails through your gmail account from your project/website in a easy way. Use Gmailit's [javascript SDK](https://www.npmjs.com/package/gmailit) or use the Gmailit API directly. Refer the [API guide](#api-guide) given below.
+Thunder Mail let's you send emails through any of your account (currently supporting gmail accounts) from your project/website in an easy way. Use Thunder Mail's [JavaScript SDK](https://www.npmjs.com/package/thundermail) or use the Thunder Mail API directly. Refer the [API guide](#api-guide) given below.
 
 ## Why
 
-Everyone can't afford to buy domain for their side projects. I built gmailit with a similar experience to resend but using gmail account to send emails. Now you can use gmail without gmailit to send emails but gmailit provides you more. It gives you nice dashboard to view the emails you sent.
+Everyone can't afford to buy domain for their side projects. I built ThunderMail with a similar experience to resend but using any of your email account (currently supporting gmail accounts) to send emails. You can use your email accounts for sending emails without ThunderMail to send emails but ThunderMail provides you more. It gives you nice dashboard to view the emails you sent.
 
 ## Disclaimer
 
-Gmailit is not a replacement for resend or a similar service for a businesses as it needs to send a lot of emails daily whereas gmail has limit of some 500 emails or so. Also a personal domain builds a more trust of a business.
+ThunderMail is not a replacement for resend or a similar service for a businesses as it needs to send a lot of emails daily whereas gmail has limit of some 500 emails or so. Also a personal domain builds a more trust of a business.
 
 ## Features
 
 - [Easy to use API](#api-guide)
-- [Javascript SDK available](https://www.npmjs.com/package/gmailit)
-- [Email history on dashboard](https://gmailit.vercel.app/dashboard/emails)
+- [Javascript SDK available](https://www.npmjs.com/package/thundermail)
+- [Email history on dashboard](https://thundermail.vercel.app/dashboard/emails)
 
 ## Tech Stack
 
@@ -41,7 +41,7 @@ Gmailit is not a replacement for resend or a similar service for a businesses as
 
 Send Email
 ```
-Endpoint: POST -> https://gmailit.vercel.app/api/v1/emails
+Endpoint: POST -> https://thundermail.vercel.app/api/v1/emails
 Headers:  Authorization: Bearer [API_KEY]
           Content-Type: application/json
 
@@ -74,7 +74,7 @@ The plain text version of the message.
 
 Retrive Email
 ```
-Endpoint: GET -> https://gmailit.vercel.app/api/v1/emails/[email_id]
+Endpoint: GET -> https://thundermail.vercel.app/api/v1/emails/[email_id]
 Headers:  Authorization: Bearer [API_KEY]
           Content-Type: application/json
 

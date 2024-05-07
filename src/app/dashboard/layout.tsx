@@ -20,10 +20,10 @@ function SideNav() {
     <div className="flex h-full flex-col gap-8 px-2 py-4">
       <Link className="overflow-hidden rounded-md" href="/">
         <Image
-          src="/gmailit.svg"
-          alt="Gmailit logo"
-          width={120}
-          height={25}
+          src="/logo.png"
+          alt="ThunderMail logo"
+          width={220}
+          height={50}
           priority
         />
       </Link>

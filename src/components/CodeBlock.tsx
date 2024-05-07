@@ -23,12 +23,12 @@ const codes = [
   {
     name: "Node.js",
     icon: <TbBrandNodejs />,
-    value: `import { Gmailit } from 'gmailit';
+    value: `import { ThunderMail } from 'thundermail';
 
-const gmailit = new Gmailit('git_12345678');
+const thundermail = new ThunderMail('tim_12345678');
 
 (async function() {
-  const { data, error } = await gmailit.emails.send({
+  const { data, error } = await thundermail.emails.send({
     from: 'onboarding@gmail.com',
     to: 'delivered@google.com',
     subject: 'Hello World',
@@ -46,12 +46,12 @@ const gmailit = new Gmailit('git_12345678');
     name: "Next.js",
     icon: <TbBrandNextjs />,
     value: `import { EmailTemplate } from '@/components/email-template';
-import { Gmailit } from 'gmailit';
+import { ThunderMail } from 'thundermail';
 
-const gmailit = new Gmailit(process.env.GMAILIT_API_KEY);
+const thundermail = new ThunderMail(process.env.THUNDERMAIL_API_KEY);
 
 export async function POST() {
-  const { data, error } = await gmailit.emails.send({
+  const { data, error } = await thundermail.emails.send({
     from: 'onboarding@gmail.com',
     to: 'delivered@google.com',
     subject: 'Hello world',
@@ -69,12 +69,12 @@ export async function POST() {
     name: "Remix",
     icon: <SiRemix />,
     value: `import { json } from '@remix-run/node';
-import { Gmailit } from 'gmailit';
+import { ThunderMail } from 'thundermail';
 
-const gmailit = new Gmailit('git_12345678');
+const thundermail = new ThunderMail('tim_12345678');
 
 export const loader = async () => {
-  const { data, error } = await gmailit.emails.send({
+  const { data, error } = await thundermail.emails.send({
     from: 'onboarding@gmail.com',
     to: 'delivered@google.com',
     subject: 'Hello World',
@@ -91,12 +91,12 @@ export const loader = async () => {
   {
     name: "Nuxt",
     icon: <TbBrandNuxt />,
-    value: `import { Gmailit } from 'gmailit';
+    value: `import { ThunderMail } from 'thundermail';
 
-const gmailit = new Gmailit('git_12345678');
+const thundermail = new ThunderMail('tim_12345678');
 
 export default defineEventHandler(async () => {
-  const { data, error } = await gmailit.emails.send({
+  const { data, error } = await thundermail.emails.send({
     from: 'onboarding@gmail.com',
     to: 'delivered@google.com',
     subject: 'Hello World',
@@ -113,14 +113,14 @@ export default defineEventHandler(async () => {
   {
     name: "Express",
     icon: <SiExpress />,
-    value: `import { Gmailit } from 'gmailit';
+    value: `import { ThunderMail } from 'thundermail';
 import express, { Request, Response } from 'express';
 
-const gmailit = new Gmailit('git_12345678');
+const thundermail = new ThunderMail('tim_12345678');
 const app = express();
 
 app.get('/', async (req: Request, res: Response) => {
-  const { data, error } = await gmailit.emails.send({
+  const { data, error } = await thundermail.emails.send({
     from: 'onboarding@gmail.com',
     to: 'delivered@google.com',
     subject: 'Hello World',
@@ -137,13 +137,13 @@ app.get('/', async (req: Request, res: Response) => {
   {
     name: "Redwood",
     icon: <SiRedwoodjs />,
-    value: `import { Gmailit } from 'gmailit';
+    value: `import { ThunderMail } from 'thundermail';
 import type { APIGatewayEvent, Context } from 'aws-lambda';
 
 export const handler = async (event: APIGatewayEvent, context: Context) => {
-  const gmailit = new Gmailit('git_12345678');
+  const thundermail = new ThunderMail('tim_12345678');
 
-  const { data, error } = await gmailit.emails.send({
+  const { data, error } = await thundermail.emails.send({
     from: 'onboarding@gmail.com',
     to: ['delivered@google.com'],
     subject: 'Hello World',
@@ -172,15 +172,15 @@ export const handler = async (event: APIGatewayEvent, context: Context) => {
   {
     name: "Bun",
     icon: <SiBun />,
-    value: `import { Gmailit } from 'gmailit';
+    value: `import { ThunderMail } from 'thundermail';
 import { EmailTemplate } from './email-template';
 
-const gmailit = new Gmailit('git_12345678');
+const thundermail = new ThunderMail('tim_12345678');
 
 const server = Bun.serve({
   port: 3000,
   async fetch() {
-    const { data, error } = await gmailit.emails.send({
+    const { data, error } = await thundermail.emails.send({
       from: 'onboarding@gmail.com',
       to: ['delivered@google.com'],
       subject: 'Hello World',

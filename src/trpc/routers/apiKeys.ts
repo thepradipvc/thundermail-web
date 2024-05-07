@@ -13,7 +13,7 @@ export const apiKeysRouter = createTRPCRouter({
       const { db, user } = ctx;
       const { name } = input;
 
-      const apiKey = `git_${randomBytes(16).toString("hex")}`;
+      const apiKey = `tim_${randomBytes(16).toString("hex")}`;
       const prefix = apiKey.substring(0, 12);
 
       await db.insert(apiKeys).values({

@@ -16,8 +16,8 @@ const Home = async () => {
               <span className="text-primary">easy</span> way.
             </h1>
             <p className="mt-4 max-w-md md:text-lg">
-              You can now send emails from your gmail account to your customers
-              with Gmailit&apos;s easy to use SDKs or use the API
+              You can now send emails from your email account to your customers
+              with ThunderMail&apos;s easy to use SDKs or use the API
             </p>
             <Button className="mt-4 md:mt-8" asChild>
               <Link href="/signin">Get Started</Link>
@@ -64,7 +64,7 @@ const Home = async () => {
                 Integrate with your favorite tools today
               </h2>
               <p className="mt-4 text-lg text-gray-200">
-                Sending emails has never been easier than with Gmailit.
+                Sending emails has never been easier than with ThunderMail.
               </p>
             </div>
           </div>
@@ -86,8 +86,8 @@ const Home = async () => {
                 <span className="text-sm font-medium text-primary">Step 2</span>
                 <span className="text-xl font-semibold">Create an API Key</span>
                 <span className="mt-2 text-gray-100">
-                  Create an API Key from the dashboard to use with the gmailit
-                  SDK.
+                  Create an API Key from the dashboard to use with the
+                  thundermail SDK.
                 </span>
               </div>
             </li>
@@ -98,15 +98,14 @@ const Home = async () => {
                   Start sending Emails
                 </span>
                 <span className="mt-2 text-gray-100">
-                  It&apos;s that simple. Try out Gmailit today - it realy takes
-                  less than a minute.
+                  It&apos;s that simple. Try out ThunderMail today - it realy
+                  takes less than a minute.
                 </span>
               </div>
             </li>
           </ol>
 
           <div className="mx-auto max-w-6xl">
-            {/* <div className="-m-2 rounded-xl bg-gray-900/5 p-2 ring-inset ring-gray-900/10 lg:-m-4 lg:rounded-2xl lg:p-4"> */}
             <div className="rounded-xl bg-gray-200/15 p-2 md:p-4">
               <Image
                 src="/emails-dashboard-page.png"
@@ -114,11 +113,9 @@ const Home = async () => {
                 height={972}
                 quality={100}
                 className="ring- rounded-md shadow-2xl ring-primary"
-                // ring-inset ring-gray-900/10
                 alt="Emails dashboard preview"
               />
             </div>
-            {/* </div> */}
           </div>
         </MaxWidthWrapper>
       </section>
@@ -137,7 +134,7 @@ const Home = async () => {
             The source code is available on{" "}
             <Button variant="link" className="p-0 text-base underline" asChild>
               <a
-                href="https://github.com/thepradipvc/gmailit-web"
+                href="https://github.com/thepradipvc/thundermail-web"
                 target="_blank"
               >
                 Github.

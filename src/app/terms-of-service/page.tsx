@@ -1,5 +1,4 @@
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
 const page = () => {
@@ -8,9 +7,10 @@ const page = () => {
       <h1 className="text-center text-5xl font-bold">Terms of Service</h1>
       <div className="mx-auto mt-8 max-w-prose text-lg text-gray-200">
         <p>
-          Welcome to Gmailit! These Terms of Service (ToS) govern your access to
-          and use of the Gmailit email sending service. By accessing or using
-          the Service, you agree to be bound by these ToS and our{" "}
+          Welcome to ThunderMail! These Terms of Service (ToS) govern your
+          access to and use of the ThunderMail email sending service. By
+          accessing or using the Service, you agree to be bound by these ToS and
+          our{" "}
           <Link className="underline underline-offset-4" href="/privacy-policy">
             Privacy Policy.
           </Link>
