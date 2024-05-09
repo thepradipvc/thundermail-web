@@ -6,7 +6,7 @@ const loading = async () => {
   return (
     <main className="mx-auto flex max-w-6xl flex-col justify-center">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">Gmail Accounts</h1>
+        <h1 className="text-2xl font-bold">Email Accounts</h1>
         <Skeleton className="h-9 w-36" />
       </div>
       <div className="my-5 divide-y divide-gray-800 rounded-lg border border-gray-800 font-medium">

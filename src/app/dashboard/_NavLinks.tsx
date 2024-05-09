@@ -1,18 +1,17 @@
 "use client";
 import { cn } from "@/lib/utils";
+import { Lock } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { BiLogoGmail } from "react-icons/bi";
 import { IoMdHome } from "react-icons/io";
-import { MdOutlineEmail } from "react-icons/md";
-import { Lock } from "lucide-react";
+import { MdOutlineEmail, MdOutlineManageAccounts } from "react-icons/md";
 
 const links = [
   { name: "Overview", href: "/dashboard", icon: IoMdHome },
   {
-    name: "Gmail Accounts",
-    href: "/dashboard/gmail-accounts",
-    icon: BiLogoGmail,
+    name: "Email Accounts",
+    href: "/dashboard/email-accounts",
+    icon: MdOutlineManageAccounts,
   },
   { name: "Emails", href: "/dashboard/emails", icon: MdOutlineEmail },
   { name: "API Keys", href: "/dashboard/api-keys", icon: Lock },

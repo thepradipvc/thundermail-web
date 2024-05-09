@@ -20,7 +20,7 @@ const Page = async () => {
   return (
     <main className="mx-auto flex max-w-6xl flex-col justify-center">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">Gmail Accounts</h1>
+        <h1 className="text-2xl font-bold">Email Accounts</h1>
         <Button asChild>
           <Link href="/api/link-gmail">
             <LuPlus className="mr-2" /> Add Account
