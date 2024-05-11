@@ -17,7 +17,7 @@ const Home = async () => {
             </h1>
             <p className="mt-4 max-w-md md:text-lg">
               You can now send emails from your email account to your customers
-              with ThunderMail&apos;s easy to use SDKs or use the API
+              with Thunder Mail&apos;s easy to use SDKs or use the API
             </p>
             <Button className="mt-4 md:mt-8" asChild>
               <Link href="/signin">Get Started</Link>
@@ -64,7 +64,7 @@ const Home = async () => {
                 Integrate with your favorite tools today
               </h2>
               <p className="mt-4 text-lg text-gray-200">
-                Sending emails has never been easier than with ThunderMail.
+                Sending emails has never been easier than with Thunder Mail.
               </p>
             </div>
           </div>
@@ -98,7 +98,7 @@ const Home = async () => {
                   Start sending Emails
                 </span>
                 <span className="mt-2 text-gray-100">
-                  It&apos;s that simple. Try out ThunderMail today - it realy
+                  It&apos;s that simple. Try out Thunder Mail today - it realy
                   takes less than a minute.
                 </span>
               </div>

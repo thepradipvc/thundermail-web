@@ -7,8 +7,8 @@ const page = () => {
       <h1 className="text-center text-5xl font-bold">Terms of Service</h1>
       <div className="mx-auto mt-8 max-w-prose text-lg text-gray-200">
         <p>
-          Welcome to ThunderMail! These Terms of Service (ToS) govern your
-          access to and use of the ThunderMail email sending service. By
+          Welcome to Thunder Mail! These Terms of Service (ToS) govern your
+          access to and use of the Thunder Mail email sending service. By
           accessing or using the Service, you agree to be bound by these ToS and
           our{" "}
           <Link className="underline underline-offset-4" href="/privacy-policy">
@@ -104,9 +104,9 @@ const page = () => {
             our privacy practices, please contact us at{" "}
             <a
               className="underline underline-offset-4"
-              href="mailto:updates.mailit@gmail.com"
+              href="mailto:info.thundermail@gmail.com"
             >
-              updates.mailit@gmail.com.
+              info.thundermail@gmail.com.
             </a>
           </p>
         </div>

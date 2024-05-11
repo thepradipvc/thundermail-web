@@ -21,7 +21,7 @@ function SideNav() {
       <Link className="overflow-hidden rounded-md" href="/">
         <Image
           src="/logo.png"
-          alt="ThunderMail logo"
+          alt="Thunder Mail logo"
           width={220}
           height={50}
           priority

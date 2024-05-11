@@ -11,7 +11,7 @@ export default function Navbar() {
           <Link href="/" className="overflow-hidden rounded-md">
             <Image
               src="/logo.png"
-              alt="ThunderMail logo"
+              alt="Thunder Mail logo"
               width={220}
               height={50}
               priority

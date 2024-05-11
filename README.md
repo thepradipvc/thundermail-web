@@ -13,11 +13,11 @@ Thunder Mail let's you send emails through any of your account (currently suppor
 
 ## Why
 
-Everyone can't afford to buy domain for their side projects. I built ThunderMail with a similar experience to resend but using any of your email account (currently supporting gmail accounts) to send emails. You can use your email accounts for sending emails without ThunderMail to send emails but ThunderMail provides you more. It gives you nice dashboard to view the emails you sent.
+Everyone can't afford to buy domain for their side projects. I built Thunder Mail with a similar experience to resend but using any of your email account (currently supporting gmail accounts) to send emails. You can use your email accounts for sending emails without Thunder Mail to send emails but Thunder Mail provides you more. It gives you nice dashboard to view the emails you sent.
 
 ## Disclaimer
 
-ThunderMail is not a replacement for resend or a similar service for a businesses as it needs to send a lot of emails daily whereas gmail has limit of some 500 emails or so. Also a personal domain builds a more trust of a business.
+Thunder Mail is not a replacement for resend or a similar service for a businesses as it needs to send a lot of emails daily whereas most email services have limit of some 500 emails or so. Also a personal domain builds a more trust of a business.
 
 ## Features
 
