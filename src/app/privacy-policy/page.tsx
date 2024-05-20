@@ -27,13 +27,14 @@ const page = () => {
             How We Use Your Information
           </h2>
           <p>
-            The information we collect is used solely to provide and improve the
-            Thunder Mail email sending service. Specifically, we use your email
-            address to authenticate and link your Gmail account(s) with our
-            service. We use the email data (recipient addresses and content) to
-            facilitate the sending of emails on your behalf. We do not sell,
-            trade, or rent your personal information to third parties for
-            marketing purposes.
+            We collect information solely to enhance the Thunder Mail email
+            sending service. Specifically, we use your email address to
+            authenticate and link your Email accounts with our service. We use
+            your email data, including recipient addresses and content, to
+            facilitate sending emails on your behalf. We don&apos;t sell, trade,
+            or rent your personal information to third parties for marketing
+            purposes. Furthermore, we don&apos;t share, transfer, or disclose
+            Google user data with any third party.
           </p>
         </div>
         <div className="mt-10">
@@ -54,7 +55,7 @@ const page = () => {
           <p>
             You have the right to access, update, and delete your personal
             information stored by Thunder Mail. You can also revoke access to
-            your Gmail account(s) at any time by removing them from our service.
+            your Email account(s) at any time by removing them from our service.
           </p>
         </div>
         <div className="mt-10">

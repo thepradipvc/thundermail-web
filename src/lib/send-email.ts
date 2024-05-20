@@ -36,6 +36,8 @@ export const sendEmail = async (emailId: string) => {
   if (!gmailAccount) {
     console.log("Gmail account not linked");
     // TODO: Handle this case by sending an email to the user
+    // Although this will not happen mostly as the emails are sent as soon as created and the user can't select a gmail account that is not linked
+    // It can only happen if user intentionally deletes the gmail account instantly after creating the email
     return;
   }
 
