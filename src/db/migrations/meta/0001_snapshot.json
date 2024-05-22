@@ -1,10 +1,8 @@
 {
-  "id": "dc61bebf-2abc-454c-bb0a-151d51e37771",
-  "prevId": "3aff87b0-a2aa-40e1-bb91-1c143d138a10",
-  "version": "5",
-  "dialect": "pg",
+  "version": "6",
+  "dialect": "postgresql",
   "tables": {
-    "api_keys": {
+    "public.api_keys": {
       "name": "api_keys",
       "schema": "",
       "columns": {
@@ -66,36 +64,36 @@
         "api_keys_user_id_users_id_fk": {
           "name": "api_keys_user_id_users_id_fk",
           "tableFrom": "api_keys",
-          "tableTo": "users",
           "columnsFrom": [
             "user_id"
           ],
+          "tableTo": "users",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
         "api_keys_prefix_unique": {
           "name": "api_keys_prefix_unique",
-          "nullsNotDistinct": false,
           "columns": [
             "prefix"
-          ]
+          ],
+          "nullsNotDistinct": false
         },
         "api_keys_api_key_unique": {
           "name": "api_keys_api_key_unique",
-          "nullsNotDistinct": false,
           "columns": [
             "api_key"
-          ]
+          ],
+          "nullsNotDistinct": false
         }
       }
     },
-    "email_recipients": {
+    "public.email_recipients": {
       "name": "email_recipients",
       "schema": "",
       "columns": {
@@ -151,21 +149,21 @@
         "email_recipients_email_id_emails_id_fk": {
           "name": "email_recipients_email_id_emails_id_fk",
           "tableFrom": "email_recipients",
-          "tableTo": "emails",
           "columnsFrom": [
             "email_id"
           ],
+          "tableTo": "emails",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "emails": {
+    "public.emails": {
       "name": "emails",
       "schema": "",
       "columns": {
@@ -266,34 +264,34 @@
         "emails_user_id_users_id_fk": {
           "name": "emails_user_id_users_id_fk",
           "tableFrom": "emails",
-          "tableTo": "users",
           "columnsFrom": [
             "user_id"
           ],
+          "tableTo": "users",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         },
         "emails_api_key_id_api_keys_id_fk": {
           "name": "emails_api_key_id_api_keys_id_fk",
           "tableFrom": "emails",
-          "tableTo": "api_keys",
           "columnsFrom": [
             "api_key_id"
           ],
+          "tableTo": "api_keys",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "set null",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "set null"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "gmail_accounts": {
+    "public.gmail_accounts": {
       "name": "gmail_accounts",
       "schema": "",
       "columns": {
@@ -349,29 +347,29 @@
         "gmail_accounts_user_id_users_id_fk": {
           "name": "gmail_accounts_user_id_users_id_fk",
           "tableFrom": "gmail_accounts",
-          "tableTo": "users",
           "columnsFrom": [
             "user_id"
           ],
+          "tableTo": "users",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
         "gmail_accounts_email_unique": {
           "name": "gmail_accounts_email_unique",
-          "nullsNotDistinct": false,
           "columns": [
             "email"
-          ]
+          ],
+          "nullsNotDistinct": false
         }
       }
     },
-    "sessions": {
+    "public.sessions": {
       "name": "sessions",
       "schema": "",
       "columns": {
@@ -407,21 +405,21 @@
         "sessions_user_id_users_id_fk": {
           "name": "sessions_user_id_users_id_fk",
           "tableFrom": "sessions",
-          "tableTo": "users",
           "columnsFrom": [
             "user_id"
           ],
+          "tableTo": "users",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "users": {
+    "public.users": {
       "name": "users",
       "schema": "",
       "columns": {
@@ -456,43 +454,48 @@
       "uniqueConstraints": {
         "users_google_id_unique": {
           "name": "users_google_id_unique",
-          "nullsNotDistinct": false,
           "columns": [
             "google_id"
-          ]
+          ],
+          "nullsNotDistinct": false
         }
       }
     }
   },
   "enums": {
-    "email_status": {
+    "public.email_status": {
       "name": "email_status",
-      "values": {
-        "queued": "queued",
-        "delivered": "delivered",
-        "rejected": "rejected"
-      }
+      "schema": "public",
+      "values": [
+        "queued",
+        "delivered",
+        "rejected"
+      ]
     },
-    "gmail_account_status": {
+    "public.gmail_account_status": {
       "name": "gmail_account_status",
-      "values": {
-        "active": "active",
-        "access revoked": "access revoked"
-      }
+      "schema": "public",
+      "values": [
+        "active",
+        "access revoked"
+      ]
     },
-    "recipient_type": {
+    "public.recipient_type": {
       "name": "recipient_type",
-      "values": {
-        "to": "to",
-        "cc": "cc",
-        "bcc": "bcc"
-      }
+      "schema": "public",
+      "values": [
+        "to",
+        "cc",
+        "bcc"
+      ]
     }
   },
   "schemas": {},
   "_meta": {
-    "columns": {},
     "schemas": {},
-    "tables": {}
-  }
+    "tables": {},
+    "columns": {}
+  },
+  "id": "dc61bebf-2abc-454c-bb0a-151d51e37771",
+  "prevId": "3aff87b0-a2aa-40e1-bb91-1c143d138a10"
 }

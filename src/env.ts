@@ -16,6 +16,8 @@ const envVariables = z.object({
   GOOGLE_CLIENT_SECRET: z.string(),
 
   TOKENS_ENCRYPTION_KEY: z.string(),
+
+  THUNDERMAIL_API_KEY: z.string(),
 });
 
 const env = envVariables.safeParse(process.env);

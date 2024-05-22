@@ -8,6 +8,8 @@ import { cookies } from "next/headers";
 import { NextRequest } from "next/server";
 import { parseJWT } from "oslo/jwt";
 import { google } from "../_googleAuthInstance";
+import { thundermail } from "@/lib/thundermail";
+import ThunderMailWelcomeEmail from "@/lib/emails/welcome";
 
 export async function GET(request: NextRequest) {
   const url = new URL(request.url);
@@ -59,6 +61,13 @@ export async function GET(request: NextRequest) {
       googleId: googleUser.sub,
       username: googleUser.name,
       image: googleUser.picture,
+    });
+
+    await thundermail.emails.send({
+      from: "ThunderMail <info.thundermail@gmail.com>",
+      to: googleUser.email,
+      subject: "Welcome to ThunderMail",
+      react: <ThunderMailWelcomeEmail username={googleUser.name} />,
     });
 
     const session = await lucia.createSession(userId, {});
