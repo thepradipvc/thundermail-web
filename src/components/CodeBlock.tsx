@@ -3,7 +3,7 @@
 import { cn } from "@/lib/utils";
 import { ClipboardList } from "lucide-react";
 import { useState } from "react";
-import { SiBun, SiExpress, SiRedwoodjs, SiRemix } from "react-icons/si";
+import { SiBun, SiExpress, SiRedwoodjs, SiRemix, SiPython } from "react-icons/si";
 import { TbBrandNextjs, TbBrandNodejs, TbBrandNuxt } from "react-icons/tb";
 import { TiTick } from "react-icons/ti";
 import { PrismAsyncLight as SyntaxHighlighter } from "react-syntax-highlighter";
@@ -21,7 +21,29 @@ type CodeBlockProps = {
 
 const codes = [
   {
+    name: "Python",
+    language: "python",
+    icon: <SiPython />,
+    value: `from thundermail import ThunderMail
+  
+  thundermail = ThunderMail('tim_12345678')
+  
+  data = {
+    'from' = 'you@example.com',
+    'to' = 'user@google.com',
+    'subject' = 'hello world',
+    'html' = '<strong>it works!</strong>'
+  }
+  
+  try:
+  response = thundermail.send(**email_data)
+  print(response)
+  except Exception as e:
+  print(e)`,
+  },
+  {
     name: "Node.js",
+    language: "javascript",
     icon: <TbBrandNodejs />,
     value: `import { ThunderMail } from 'thundermail';
 
@@ -44,6 +66,7 @@ const thundermail = new ThunderMail('tim_12345678');
   },
   {
     name: "Next.js",
+    language: "javascript",
     icon: <TbBrandNextjs />,
     value: `import { EmailTemplate } from '@/components/email-template';
 import { ThunderMail } from 'thundermail';
@@ -67,6 +90,7 @@ export async function POST() {
   },
   {
     name: "Remix",
+    language: "javascript",
     icon: <SiRemix />,
     value: `import { json } from '@remix-run/node';
 import { ThunderMail } from 'thundermail';
@@ -90,6 +114,7 @@ export const loader = async () => {
   },
   {
     name: "Nuxt",
+    language: "javascript",
     icon: <TbBrandNuxt />,
     value: `import { ThunderMail } from 'thundermail';
 
@@ -112,6 +137,7 @@ export default defineEventHandler(async () => {
   },
   {
     name: "Express",
+    language: "javascript",
     icon: <SiExpress />,
     value: `import { ThunderMail } from 'thundermail';
 import express, { Request, Response } from 'express';
@@ -136,6 +162,7 @@ app.get('/', async (req: Request, res: Response) => {
   },
   {
     name: "Redwood",
+    language: "javascript",
     icon: <SiRedwoodjs />,
     value: `import { ThunderMail } from 'thundermail';
 import type { APIGatewayEvent, Context } from 'aws-lambda';
@@ -171,6 +198,7 @@ export const handler = async (event: APIGatewayEvent, context: Context) => {
   },
   {
     name: "Bun",
+    language: "javascript",
     icon: <SiBun />,
     value: `import { ThunderMail } from 'thundermail';
 import { EmailTemplate } from './email-template';
@@ -200,8 +228,9 @@ console.log(\`Listening on http://localhost:\${server.port} ...\`);`,
 ];
 
 const CodeBlock = ({ language }: CodeBlockProps) => {
-  const [active, setActive] = useState("Node.js");
+  const [active, setActive] = useState("Python");
   const [code, setCode] = useState(codes[0].value);
+  const [codeLanguage, setCodeLanguage] = useState(codes[0].language);
   const [isCopied, setIsCopied] = useState(false);
 
   const handleCopy = () => {
@@ -213,8 +242,10 @@ const CodeBlock = ({ language }: CodeBlockProps) => {
   };
 
   const handleCodeChange = (name: string) => {
+    const selectedCode = codes.find((code) => code.name === name)!;
     setActive(name);
-    setCode(codes.find((code) => code.name === name)!.value);
+    setCode(selectedCode.value);
+    setCodeLanguage(selectedCode.language);
   };
 
   return (
@@ -266,7 +297,7 @@ const CodeBlock = ({ language }: CodeBlockProps) => {
           margin: 0,
           padding: "1rem 1rem 1rem 0",
         }}
-        language="javascript"
+        language={codeLanguage}
         style={nord}
       >
         {code}
