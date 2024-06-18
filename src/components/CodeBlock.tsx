@@ -26,20 +26,20 @@ const codes = [
     icon: <SiPython />,
     value: `from thundermail import ThunderMail
   
-  thundermail = ThunderMail('tim_12345678')
-  
-  data = {
-    'from' = 'you@example.com',
-    'to' = 'user@google.com',
-    'subject' = 'hello world',
-    'html' = '<strong>it works!</strong>'
-  }
-  
-  try:
-  response = thundermail.send(**email_data)
-  print(response)
-  except Exception as e:
-  print(e)`,
+thundermail = ThunderMail('tim_12345678')
+
+data = {
+  'from' = 'you@example.com',
+  'to' = 'user@google.com',
+  'subject' = 'hello world',
+  'html' = '<strong>it works!</strong>'
+}
+
+try:
+response = thundermail.send(**email_data)
+print(response)
+except Exception as e:
+print(e)`,
   },
   {
     name: "Node.js",
