@@ -2,13 +2,9 @@ import { z } from "zod";
 
 const envVariables = z.object({
   DATABASE_URL: z.string().url(),
-  AWS_SQS_QUEUE_URL: z.string().url(),
 
   UPSTASH_REDIS_REST_URL: z.string().url(),
   UPSTASH_REDIS_REST_TOKEN: z.string(),
-
-  AWS_ACCESS_KEY_ID: z.string(),
-  AWS_SECRET_ACCESS_KEY: z.string(),
 
   NEXT_PUBLIC_BASE_URL: z.string().url(),
 

@@ -12,12 +12,9 @@
     "db:generate": "drizzle-kit generate",
     "db:migrate": "tsx ./src/db/migrate.ts",
     "db:push": "drizzle-kit push",
-    "db:studio": "drizzle-kit studio",
-    "lambda:build": "npx lambda-build archive -e src/lambda/index.ts",
-    "lambda:deploy": "npx lambda-build upload process-emails -e src/lambda/index.ts -r ap-southeast-1"
+    "db:studio": "drizzle-kit studio"
   },
   "dependencies": {
-    "@aws-sdk/client-sqs": "^3.540.0",
     "@lucia-auth/adapter-drizzle": "^1.0.2",
     "@neondatabase/serverless": "^0.8.1",
     "@radix-ui/react-dialog": "^1.1.15",
@@ -35,7 +32,6 @@
     "@trpc/next": "^10.45.1",
     "@trpc/react-query": "^10.45.1",
     "@trpc/server": "^10.45.1",
-    "@types/aws-lambda": "^8.10.136",
     "@upstash/ratelimit": "^1.0.3",
     "@upstash/redis": "^1.29.0",
     "@vercel/analytics": "^1.2.2",
@@ -76,7 +72,6 @@
     "drizzle-kit": "^0.21.2",
     "eslint": "^8",
     "eslint-config-next": "^16",
-    "lambda-build": "^1.0.6",
     "pg": "^8.11.3",
     "postcss": "^8",
     "prettier-plugin-tailwindcss": "^0.5.11",

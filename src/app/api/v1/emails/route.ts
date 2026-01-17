@@ -7,12 +7,12 @@ import {
   gmailAccounts,
 } from "@/db/schema";
 import { hash } from "@/lib/crypto-helpers";
-import { sqsClient } from "@/lib/sqs-client";
+import { sendEmail } from "@/lib/send-email";
 import { emailSendingQuotaLimit, ratelimit } from "@/lib/upstash-ratelimit";
 import { extractEmailAddress, validateEmail } from "@/lib/utils";
-import { SendMessageCommand } from "@aws-sdk/client-sqs";
 import { randomUUID } from "crypto";
 import { and, eq } from "drizzle-orm";
+import { after } from "next/server";
 import { headers } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -281,13 +281,13 @@ export async function POST(request: NextRequest) {
 
   await db.insert(emailRecipients).values(recipients);
 
-  const message = {
-    QueueUrl: `${process.env.AWS_SQS_QUEUE_URL}`,
-    MessageBody: emailId,
-  };
-
-  const command = new SendMessageCommand(message);
-  await sqsClient.send(command);
+  after(async () => {
+    try {
+      await sendEmail(emailId);
+    } catch (error) {
+      console.error("Failed to send email:", error);
+    }
+  });
 
   return NextResponse.json(
     {
