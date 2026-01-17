@@ -66,7 +66,7 @@ export async function GET(request: NextRequest) {
       return new Response(null, {
         status: 302,
         headers: {
-          Location: "/dashboard/gmail-accounts",
+          Location: "/dashboard/email-accounts",
         },
       });
     }
@@ -76,7 +76,7 @@ export async function GET(request: NextRequest) {
         status: 302,
         headers: {
           Location:
-            "/dashboard/gmail-accounts?error=This gmail account is already registered with some other account",
+            "/dashboard/email-accounts?error=This gmail account is already registered with some other account",
         },
       });
     }
@@ -98,10 +98,11 @@ export async function GET(request: NextRequest) {
     return new Response(null, {
       status: 302,
       headers: {
-        Location: "/dashboard/gmail-accounts",
+        Location: "/dashboard/email-accounts",
       },
     });
   } catch (e) {
+    console.error("link-gmail callback error:", e);
     return new Response(null, {
       status: 500,
     });
