@@ -5,8 +5,13 @@ import { EmailStatsChart } from "./_EmailStatsChart";
 const ranges = ["d", "7d", "15d", "30d"] as const;
 const rangeSchema = z.enum(ranges).optional().default("d");
 
-const page = async ({ searchParams }: { searchParams: { range?: string } }) => {
-  const range = rangeSchema.parse(searchParams.range || "d");
+const page = async ({
+  searchParams,
+}: {
+  searchParams: Promise<{ range?: string }>;
+}) => {
+  const { range: rangeParam } = await searchParams;
+  const range = rangeSchema.parse(rangeParam || "d");
   const emailStats = await (await serverClient).emails.getStats({ range });
 
   return (

@@ -42,7 +42,7 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const headersList = headers();
+  const headersList = await headers();
   const auth = headersList.get("Authorization");
   if (!auth) {
     return NextResponse.json(

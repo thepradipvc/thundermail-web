@@ -8,7 +8,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },
 ) {
   // This header only works on vercel deployments
   const ip = request.headers.get("x-forwarded-for") ?? "";
@@ -35,9 +35,9 @@ export async function GET(
     );
   }
 
-  const emailId = params.id;
+  const { id: emailId } = await params;
 
-  const headersList = headers();
+  const headersList = await headers();
   const auth = headersList.get("Authorization");
   if (!auth) {
     return NextResponse.json(

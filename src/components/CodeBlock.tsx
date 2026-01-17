@@ -284,7 +284,7 @@ const LanguageButton = ({
   isActive = false,
 }: {
   name: string;
-  icon: JSX.Element;
+  icon: React.ReactNode;
   handleCodeChange: (name: string) => void;
   isActive?: boolean;
 }) => {

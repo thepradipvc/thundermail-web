@@ -18,17 +18,22 @@ type SearchParams = {
   page?: string;
 };
 
-const Page = async ({ searchParams }: { searchParams: SearchParams }) => {
+const Page = async ({
+  searchParams,
+}: {
+  searchParams: Promise<SearchParams>;
+}) => {
   const { user } = await validateUser();
 
   if (!user) {
     redirect("/signin");
   }
 
-  const timeFilter = getTimeFilter(timeFilterSchema.parse(searchParams.time));
-  const apiKeyFilter = apiKeyFilterSchema.parse(searchParams.apiKey);
-  const statusFilter = statusFilterSchema.parse(searchParams.status);
-  const searchTerm = searchParams.search || "";
+  const params = await searchParams;
+  const timeFilter = getTimeFilter(timeFilterSchema.parse(params.time));
+  const apiKeyFilter = apiKeyFilterSchema.parse(params.apiKey);
+  const statusFilter = statusFilterSchema.parse(params.status);
+  const searchTerm = params.search || "";
   const pageSize = 50;
 
   const withFilters = <T extends PgSelect>(qb: T) => {
@@ -58,8 +63,7 @@ const Page = async ({ searchParams }: { searchParams: SearchParams }) => {
   const totalResults = await totalResultsQuery.execute();
   const totalPages = Math.ceil(totalResults[0].value / pageSize);
 
-  let page =
-    parseInt(searchParams.page!) >= 1 ? parseInt(searchParams.page!) : 1;
+  let page = parseInt(params.page!) >= 1 ? parseInt(params.page!) : 1;
   page = page > totalPages ? totalPages : page;
   page = page < 1 ? 1 : page;
   const offset = (page - 1) * pageSize;
